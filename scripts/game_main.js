@@ -252,6 +252,7 @@ game_main.prototype = {
                 
                 this.asteroids_small.add(new_asteroid);  
             }
+            this.score += 1;
             asteroid.destroy();
         }, this);
         
