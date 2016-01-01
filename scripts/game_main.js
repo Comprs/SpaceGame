@@ -84,7 +84,11 @@ game_main.prototype = {
         this.player.events.onKilled.add(function() {
             let death_sfx = this.game.add.audio("death_1");
             death_sfx.play();
-            this.state.start("Game Over", true, false, this.score);
+            let game_transition_timer = this.game.time.create(true);
+            game_transition_timer.add(2000, function() {
+                this.state.start("Game Over", true, false, this.score);
+            }, this);
+            game_transition_timer.start();
         }, this);
         
         let health_regen_timer = this.game.time.create(false);
