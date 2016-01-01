@@ -24,6 +24,13 @@ preload.prototype = {
         this.game.load.image("planet_4", "assets/images/planet_4.png");
         this.game.load.image("laser", "assets/images/laser.png");
         this.game.load.spritesheet("background_particles", "assets/images/background_particles.png", 8, 8);
+        this.game.load.audio("explosion_1", "assets/sfx/explosion_1.ogg");
+        this.game.load.audio("explosion_2", "assets/sfx/explosion_2.ogg");
+        this.game.load.audio("explosion_3", "assets/sfx/explosion_3.ogg");
+        this.game.load.audio("laser_1", "assets/sfx/laser_1.ogg");
+        this.game.load.audio("laser_2", "assets/sfx/laser_2.ogg");
+        this.game.load.audio("hit_1", "assets/sfx/hit_1.ogg");
+        this.game.load.audio("hit_2", "assets/sfx/hit_2.ogg");
     },
     
     create: function() {

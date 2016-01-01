@@ -8,6 +8,22 @@ game_main.prototype = {
         this.game.time.advancedTiming = true;
         
         this.score = 0;
+
+        this.explosions = [
+            this.game.add.audio("explosion_1"),
+            this.game.add.audio("explosion_2"),
+            this.game.add.audio("explosion_3")
+        ];
+        
+        this.laser_sfx = [
+            this.game.add.audio("laser_1"),
+            this.game.add.audio("laser_2")
+        ];
+
+        this.hit_sfx = [
+            this.game.add.audio("hit_1"),
+            this.game.add.audio("hit_2")
+        ];
         
         let star_emitter = this.game.add.emitter(this.game.world.width, this.game.world.height / 2, 100);
         star_emitter.height = this.game.world.height;
@@ -85,6 +101,8 @@ game_main.prototype = {
             new_laser.rotation = this.player.rotation;
             new_laser.checkWorldBounds = true;
             new_laser.outOfBoundsKill = true;
+            let laser_selection = Math.floor(Math.random() * this.laser_sfx.length);
+            this.laser_sfx[laser_selection].play()
         }, this);
         
         this.game.time.events.loop(1000, function() {
@@ -145,6 +163,8 @@ game_main.prototype = {
             if (laser.alive && asteroid.alive) {
                 laser.kill();
                 asteroid.kill();
+                let explosion_selection = Math.floor(Math.random() * this.explosions.length);
+                this.explosions[explosion_selection].play()
             }
             return false;
         };
@@ -155,10 +175,14 @@ game_main.prototype = {
         game.physics.arcade.collide(this.lasers, this.asteroids_small, null, laser_collide_callback, this);
         game.physics.arcade.collide(this.player, this.asteroids_small, function(player, asteroid) {
             player.damage(10);
-        });
+            let hit_selection = Math.floor(Math.random() * this.hit_sfx.length);
+            this.hit_sfx[hit_selection].play()
+        }, null, this);
         game.physics.arcade.collide(this.player, this.asteroids_normal, function(player, asteroid) {
             player.damage(20);
-        });
+            let hit_selection = Math.floor(Math.random() * this.hit_sfx.length);
+            this.hit_sfx[hit_selection].play()
+        }, null, this);
 	game.physics.arcade.collide(this.player, this.asteroids_normal);
         
         let arrow_keys = this.game.input.keyboard.createCursorKeys();
