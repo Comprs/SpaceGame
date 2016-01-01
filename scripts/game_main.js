@@ -136,7 +136,7 @@ game_main.prototype = {
             laser_timer.pause();
         });
 
-        this.game.time.events.loop(1000, function() {
+        this.game.time.events.loop(750, function() {
             if (this.asteroids_normal.length + this.asteroids_small.length >= 125) {
                 return;
             }
