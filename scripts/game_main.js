@@ -5,7 +5,7 @@ var game_main = function(game) {};
 game_main.prototype = {
     create: function() {
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
-	this.game.time.advancedTiming = true;
+        this.game.time.advancedTiming = true;
         
         this.score = 0;
         
