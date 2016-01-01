@@ -69,7 +69,7 @@ game_main.prototype = {
         planet_emitter_timer.start();
 
         this.spark_emmiter = this.game.add.emitter(0, 0, 200);
-        this.spark_emmiter.lifespan = 5000;
+        this.spark_emmiter.lifespan = 1000;
         this.spark_emmiter.gravity = 0;
         this.spark_emmiter.minParticleSpeed.set(-140, -140);
         this.spark_emmiter.maxParticleSpeed.set(140, 140);
@@ -300,7 +300,7 @@ game_main.prototype = {
                 this.asteroids_small.add(new_asteroid);  
             }
             this.score += 1;
-            for (let i = 0; i < 50; ++i) {
+            for (let i = 0; i < 25; ++i) {
                 this.spark_emmiter.emitParticle(asteroid.x, asteroid.y);
             }
             asteroid.destroy();
@@ -308,7 +308,7 @@ game_main.prototype = {
 
         this.asteroids_small.forEachDead(function(asteroid) {
             this.score += 1;
-            for (let i = 0; i < 25; ++i) {
+            for (let i = 0; i < 10; ++i) {
                 this.spark_emmiter.emitParticle(asteroid.x, asteroid.y);
             }
             asteroid.destroy();
