@@ -67,6 +67,17 @@ game_main.prototype = {
             }
         }, this);
         planet_emitter_timer.start();
+
+        this.spark_emmiter = this.game.add.emitter(0, 0, 25);
+        this.spark_emmiter.lifespan = 5000;
+        this.spark_emmiter.gravity = 0;
+        this.spark_emmiter.minParticleSpeed.set(-140, -140);
+        this.spark_emmiter.maxParticleSpeed.set(140, 140);
+        this.spark_emmiter.makeParticles("spark");
+        this.spark_emmiter.forEach(function(particle) {
+            particle.checkWorldBounds = true;
+            particle.outOfBoundsKill = true;
+        });
         
         this.asteroids_normal = this.game.add.group();
         
@@ -84,6 +95,11 @@ game_main.prototype = {
         this.player.events.onKilled.add(function() {
             let death_sfx = this.game.add.audio("death_1");
             death_sfx.play();
+
+            for (let i = 0; i < 25; ++i) {
+                this.spark_emmiter.emitParticle(this.player.x, this.player.y);
+            }
+
             let game_transition_timer = this.game.time.create(true);
             game_transition_timer.add(2000, function() {
                 this.state.start("Game Over", true, false, this.score);
@@ -284,11 +300,17 @@ game_main.prototype = {
                 this.asteroids_small.add(new_asteroid);  
             }
             this.score += 1;
+            for (let i = 0; i < 25; ++i) {
+                this.spark_emmiter.emitParticle(asteroid.x, asteroid.y);
+            }
             asteroid.destroy();
         }, this);
         
         this.asteroids_small.forEachDead(function(asteroid) {
             this.score += 1;
+            for (let i = 0; i < 5; ++i) {
+                this.spark_emmiter.emitParticle(asteroid.x, asteroid.y);
+            }
             asteroid.destroy();
         }, this);
         
