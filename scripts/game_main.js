@@ -151,14 +151,14 @@ game_main.prototype = {
         game.physics.arcade.collide(this.asteroids_normal, this.asteroids_normal);
         game.physics.arcade.collide(this.asteroids_small, this.asteroids_small);
         game.physics.arcade.collide(this.asteroids_normal, this.asteroids_small);
-        game.physics.arcade.collide(this.lasers, this.asteroids_normal, null, laser_collide_callback);
-        game.physics.arcade.collide(this.lasers, this.asteroids_small, null, laser_collide_callback);
-	game.physics.arcade.collide(this.player, this.asteroids_small, function(player, asteroid) {
-	    player.damage(10);
-	});
-	game.physics.arcade.collide(this.player, this.asteroids_normal, function(player, asteroid) {
-	    player.damage(20);
-	});
+        game.physics.arcade.collide(this.lasers, this.asteroids_normal, null, laser_collide_callback, this);
+        game.physics.arcade.collide(this.lasers, this.asteroids_small, null, laser_collide_callback, this);
+        game.physics.arcade.collide(this.player, this.asteroids_small, function(player, asteroid) {
+            player.damage(10);
+        });
+        game.physics.arcade.collide(this.player, this.asteroids_normal, function(player, asteroid) {
+            player.damage(20);
+        });
 	game.physics.arcade.collide(this.player, this.asteroids_normal);
         
         let arrow_keys = this.game.input.keyboard.createCursorKeys();
