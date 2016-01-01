@@ -10,9 +10,9 @@ game_main.prototype = {
         this.score = 0;
 
         this.explosions = [
-            this.game.add.audio("explosion_1"),
-            this.game.add.audio("explosion_2"),
-            this.game.add.audio("explosion_3")
+            this.game.add.audio("explosion_1", 0.25),
+            this.game.add.audio("explosion_2", 0.25),
+            this.game.add.audio("explosion_3", 0.25)
         ];
 
         this.laser_sfx = [
