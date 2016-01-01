@@ -194,6 +194,12 @@ game_main.prototype = {
             let emerge_tween = this.game.add.tween(new_asteroid);
             emerge_tween.to({ x: x_dest, y: y_dest }, tween_time * 1000, Phaser.Easing.Linear.None, true);
             emerge_tween.onComplete.add(function() {
+                if (new_asteroid.body === null) {
+                    this.game.physics.arcade.enable(new_asteroid);
+                }
+                if (new_asteroid.body === null) {
+                    return;
+                }
                 new_asteroid.body.collideWorldBounds = true;
             }, this);
             this.asteroids_normal.add(new_asteroid);
