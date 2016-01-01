@@ -31,6 +31,7 @@ preload.prototype = {
         this.game.load.audio("laser_2", "assets/sfx/laser_2.ogg");
         this.game.load.audio("hit_1", "assets/sfx/hit_1.ogg");
         this.game.load.audio("hit_2", "assets/sfx/hit_2.ogg");
+        this.game.load.audio("death_1", "assets/sfx/death_1.ogg");
     },
     
     create: function() {

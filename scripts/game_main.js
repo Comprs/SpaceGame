@@ -82,6 +82,8 @@ game_main.prototype = {
         this.player.body.bounce.set(0.8);
         this.player.health = this.player.maxHealth;
         this.player.events.onKilled.add(function() {
+            let death_sfx = this.game.add.audio("death_1");
+            death_sfx.play();
             this.state.start("Game Over", true, false, this.score);
         }, this);
         
