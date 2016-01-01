@@ -97,7 +97,8 @@ game_main.prototype = {
         }, this);
         health_regen_timer.start();
         
-        this.game.input.activePointer.leftButton.onDown.add(function() {
+        let laser_timer = this.game.time.create(false);
+        laser_timer.loop(150, function() {
             let rotation = this.player.rotation - Math.PI / 2
             let new_x = this.player.position.x + Math.cos(rotation) * 20;
             let new_y = this.player.position.y + Math.sin(rotation) * 20;
@@ -110,6 +111,14 @@ game_main.prototype = {
             let laser_selection = Math.floor(Math.random() * this.laser_sfx.length);
             this.laser_sfx[laser_selection].play()
         }, this);
+        laser_timer.start();
+        laser_timer.pause();
+        this.game.input.activePointer.leftButton.onDown.add(function() {
+            laser_timer.resume();
+        });
+        this.game.input.activePointer.leftButton.onUp.add(function() {
+            laser_timer.pause();
+        });
         
         this.game.time.events.loop(1000, function() {
             let side_selection = Math.floor(Math.random() * 4);
