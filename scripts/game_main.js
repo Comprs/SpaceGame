@@ -114,41 +114,57 @@ game_main.prototype = {
                 case 0:
                     // Top
                     var x_position = Math.random() * this.game.world.width;
-                    var y_position = 0;
+                    var y_position = -24;
                     var x_velocity = Math.random() * 40 - 20
                     var y_velocity = Math.random() * 80;
+                    var tween_time = 48 / y_velocity;
+                    var x_dest = x_position + x_velocity * tween_time;
+                    var y_dest = y_position + y_velocity * tween_time;
                     break;
                 case 1:
                     // Bottom
                     var x_position = Math.random() * this.game.world.width;
-                    var y_position = this.game.world.height;
+                    var y_position = this.game.world.height + 24;
                     var x_velocity = Math.random() * 40 - 20
                     var y_velocity = Math.random() * -80;
+                    var tween_time = -48 / y_velocity;
+                    var x_dest = x_position + x_velocity * tween_time;
+                    var y_dest = y_position + y_velocity * tween_time;
                     break;
                 case 2:
                     // Left
-                    var x_position = 0;
+                    var x_position = -24;
                     var y_position = Math.random() * this.game.world.height;
                     var x_velocity = Math.random() * 80;
                     var y_velocity = Math.random() * 40 - 20
+                    var tween_time = 48 / x_velocity;
+                    var x_dest = x_position + x_velocity * tween_time;
+                    var y_dest = y_position + y_velocity * tween_time;
                     break;
                 case 3:
                     // Right
-                    var x_position = this.game.world.width;
+                    var x_position = this.game.world.width + 24;
                     var y_position = Math.random() * this.game.world.height;
                     var x_velocity = Math.random() * -80;
                     var y_velocity = Math.random() * 40 - 20
+                    var tween_time = -48 / x_velocity;
+                    var x_dest = x_position + x_velocity * tween_time;
+                    var y_dest = y_position + y_velocity * tween_time;
                     break;
             }
             let new_asteroid = this.game.add.sprite(x_position, y_position, "asteroid_small_1");
             this.game.physics.arcade.enable(new_asteroid);
             new_asteroid.anchor.set(0.5);
-            new_asteroid.body.collideWorldBounds = true;
             new_asteroid.body.bounce.set(1.0);
             new_asteroid.body.friction.set(0.0);
             new_asteroid.body.velocity.set(x_velocity, y_velocity);
             new_asteroid.body.angularVelocity = Math.random() * 40 - 20;
             new_asteroid.body.angle = Math.random() * Math.PI * 2;
+            let emerge_tween = this.game.add.tween(new_asteroid);
+            emerge_tween.to({ x: x_dest, y: y_dest }, tween_time * 1000, Phaser.Easing.Linear.None, true);
+            emerge_tween.onComplete.add(function() {
+                new_asteroid.body.collideWorldBounds = true;
+            }, this);
             this.asteroids_normal.add(new_asteroid);
         }, this);
 
