@@ -27,30 +27,30 @@ game_main.prototype = {
         }
         star_emitter.start(false);
         
-        // let planet_emitter = this.game.add.emitter(this.game.world.width * 11/8, this.game.world.height / 2, 1);
-        // planet_emitter.gravity = 0;
-        // planet_emitter.minParticleSpeed.set(-120.0, -15.0);
-        // planet_emitter.maxParticleSpeed.set(-40.0, 15.0);
-        // planet_emitter.minRotation = 0;
-        // planet_emitter.maxRotation = 0;
-        // planet_emitter.lifespan = 0;
-        // planet_emitter.makeParticles("planet_3");
-        // planet_emitter.forEachAlive(function(particle) {
-        //     particle.checkWorldBounds = true;
-        //     particle.outOfBoundsKill = true;
-        // }, this);
-        // planet_emitter.forEach(function(particle) {
-        //     particle.kill();
-        // }, this);
-        // 
-        // let planet_emitter_timer = this.game.time.create(false);
-        // planet_emitter_timer.loop(1000, function() {
-        //     if (planet_emitter.countLiving() === 0) {
-        //         let image_index = Math.floor(Math.random() * 4);
-        //         planet_emitter.emitParticle(null, null, ["planet_1","planet_2","planet_3","planet_4"][image_index]);
-        //     }
-        // }, this);
-        // planet_emitter_timer.start();
+        let planet_emitter = this.game.add.emitter(this.game.world.width * 11/8, this.game.world.height / 2, 1);
+        planet_emitter.gravity = 0;
+        planet_emitter.minParticleSpeed.set(-120.0, -15.0);
+        planet_emitter.maxParticleSpeed.set(-40.0, 15.0);
+        planet_emitter.minRotation = 0;
+        planet_emitter.maxRotation = 0;
+        planet_emitter.lifespan = 0;
+        planet_emitter.makeParticles("planet_3");
+        planet_emitter.forEachAlive(function(particle) {
+            particle.checkWorldBounds = true;
+            particle.outOfBoundsKill = true;
+        }, this);
+        planet_emitter.forEach(function(particle) {
+            particle.kill();
+        }, this);
+        
+        let planet_emitter_timer = this.game.time.create(false);
+        planet_emitter_timer.loop(1000, function() {
+            if (planet_emitter.countLiving() === 0) {
+                let image_index = Math.floor(Math.random() * 4);
+                planet_emitter.emitParticle(null, null, ["planet_1","planet_2","planet_3","planet_4"][image_index]);
+            }
+        }, this);
+        planet_emitter_timer.start();
         
         this.asteroids_normal = this.game.add.group();
         
