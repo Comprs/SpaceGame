@@ -121,10 +121,10 @@ game_main.prototype = {
         });
         
         this.game.time.events.loop(1000, function() {
-            let side_selection = Math.floor(Math.random() * 4);
             if (this.asteroids_normal.length + this.asteroids_small.length >= 125) {
                 return;
             }
+            let side_selection = Math.floor(Math.random() * 4);
             switch (side_selection) {
                 case 0:
                     // Top
