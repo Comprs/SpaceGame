@@ -6,7 +6,7 @@ game_main.prototype = {
     create: function() {
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
         this.game.time.advancedTiming = true;
-        
+
         this.score = 0;
 
         this.explosions = [
@@ -14,7 +14,7 @@ game_main.prototype = {
             this.game.add.audio("explosion_2"),
             this.game.add.audio("explosion_3")
         ];
-        
+
         this.laser_sfx = [
             this.game.add.audio("laser_1"),
             this.game.add.audio("laser_2")
@@ -24,7 +24,7 @@ game_main.prototype = {
             this.game.add.audio("hit_1"),
             this.game.add.audio("hit_2")
         ];
-        
+
         let star_emitter = this.game.add.emitter(this.game.world.width, this.game.world.height / 2, 100);
         star_emitter.height = this.game.world.height;
         star_emitter.gravity = 0;
@@ -37,12 +37,12 @@ game_main.prototype = {
             particle.checkWorldBounds = true;
             particle.outOfBoundsKill = true;
         }, this);
-        
+
         for (star_emitter.x = 0; star_emitter.x < this.game.world.width; star_emitter.x += this.game.world.width / 20) {
             star_emitter.explode(0, 5);
         }
         star_emitter.start(false);
-        
+
         let planet_emitter = this.game.add.emitter(this.game.world.width * 11/8, this.game.world.height / 2, 1);
         planet_emitter.gravity = 0;
         planet_emitter.minParticleSpeed.set(-120.0, -15.0);
@@ -58,7 +58,7 @@ game_main.prototype = {
         planet_emitter.forEach(function(particle) {
             particle.kill();
         }, this);
-        
+
         let planet_emitter_timer = this.game.time.create(false);
         planet_emitter_timer.loop(1000, function() {
             if (planet_emitter.countLiving() === 0) {
@@ -78,14 +78,14 @@ game_main.prototype = {
             particle.checkWorldBounds = true;
             particle.outOfBoundsKill = true;
         });
-        
+
         this.asteroids_normal = this.game.add.group();
-        
+
         this.asteroids_small = this.game.add.group();
-        
+
         this.lasers = this.game.add.group();
         this.lasers.enableBody = true;
-        
+
         this.player = this.game.add.sprite(game.world.width / 2, game.world.height / 2, "space_ship");
         this.player.anchor.set(0.5);
         this.game.physics.arcade.enable(this.player);
@@ -106,13 +106,13 @@ game_main.prototype = {
             }, this);
             game_transition_timer.start();
         }, this);
-        
+
         let health_regen_timer = this.game.time.create(false);
         health_regen_timer.loop(2000, function() {
             this.player.heal(3);
         }, this);
         health_regen_timer.start();
-        
+
         let laser_timer = this.game.time.create(false);
         laser_timer.loop(150, function() {
             let rotation = this.player.rotation - Math.PI / 2
@@ -135,7 +135,7 @@ game_main.prototype = {
         this.game.input.activePointer.leftButton.onUp.add(function() {
             laser_timer.pause();
         });
-        
+
         this.game.time.events.loop(1000, function() {
             if (this.asteroids_normal.length + this.asteroids_small.length >= 125) {
                 return;
@@ -231,7 +231,7 @@ game_main.prototype = {
             this.hit_sfx[hit_selection].play()
         }, null, this);
 	game.physics.arcade.collide(this.player, this.asteroids_normal);
-        
+
         let arrow_keys = this.game.input.keyboard.createCursorKeys();
         let wasd_keys =  this.game.input.keyboard.addKeys({
             "up": Phaser.KeyCode.W,
@@ -242,7 +242,7 @@ game_main.prototype = {
         this.player.body.acceleration.set(0);
         // this.player.body.acceleration.x += ((x_rotation - x_rotation_calibrate) % Math.PI * 2) * 10;
         // this.player.body.acceleration.y += ((y_rotation - y_rotation_calibrate) % Math.PI * 2) * 10;
-        
+
         if (arrow_keys.left.isDown || wasd_keys.left.isDown) {
             this.player.body.acceleration.x += -400;
         }
@@ -255,34 +255,34 @@ game_main.prototype = {
         if (arrow_keys.down.isDown || wasd_keys.down.isDown) {
             this.player.body.acceleration.y += 400;
         }
-        
+
         let mouse_x = this.game.input.activePointer.position.x;
         let mouse_y = this.game.input.activePointer.position.y;
-        
+
         let delta_x = mouse_x - this.player.body.position.x;
         let delta_y = mouse_y - this.player.body.position.y;
-        
+
         this.player.rotation = Math.atan2(delta_y, delta_x) + Math.PI / 2;
-        
+
         this.asteroids_normal.forEachAlive(function(asteroid) {
             if (asteroid.body.velocity.getMagnitude() > 240) {
                 asteroid.body.velocity.setMagnitude(240);
             }
         }, this);
-        
+
         this.asteroids_small.forEachAlive(function(asteroid) {
             if (asteroid.body.velocity.getMagnitude() > 480) {
                 asteroid.body.velocity.setMagnitude(480);
             }
         }, this);
-        
+
         this.asteroids_normal.forEachDead(function(asteroid) {
             let asteroid_count = Math.floor(Math.random() * 2) + 3;
             for (let i = 0; i < asteroid_count; ++i) {
-                
+
                 let angle = Math.PI * 2 * i / asteroid_count + Math.random() * Math.PI / 4;
                 let velocity = Math.floor(Math.random() * 50) + 50
-                 
+
                 let new_asteroid = this.game.add.sprite(asteroid.body.position.x,
                                                         asteroid.body.position.y,
                                                         "asteroid_tiny_1");
@@ -293,10 +293,10 @@ game_main.prototype = {
                 new_asteroid.body.friction.set(0.0);
                 new_asteroid.body.angularVelocity = Math.random() * 40 - 20;
                 new_asteroid.body.angle = Math.random() * Math.PI * 2;
-                
+
                 new_asteroid.body.velocity.set(Math.cos(angle) * velocity, Math.sin(angle) * velocity);
                 new_asteroid.body.velocity.add(asteroid.body.velocity.x / asteroid_count, asteroid.body.velocity.y / asteroid_count);
-                
+
                 this.asteroids_small.add(new_asteroid);  
             }
             this.score += 1;
@@ -305,7 +305,7 @@ game_main.prototype = {
             }
             asteroid.destroy();
         }, this);
-        
+
         this.asteroids_small.forEachDead(function(asteroid) {
             this.score += 1;
             for (let i = 0; i < 5; ++i) {
@@ -313,7 +313,7 @@ game_main.prototype = {
             }
             asteroid.destroy();
         }, this);
-        
+
         this.score_text.text = "Score: " + this.score;
 	this.fps_text.text = "fps: " + this.game.time.fps;
         this.health_text.text = "Health: " + this.player.health
