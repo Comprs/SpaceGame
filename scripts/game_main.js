@@ -69,11 +69,12 @@ game_main.prototype = {
         planet_emitter_timer.start();
 
         this.spark_emmiter = this.game.add.emitter(0, 0, 200);
-        this.spark_emmiter.lifespan = 1000;
+        this.spark_emmiter.lifespan = 2000;
         this.spark_emmiter.gravity = 0;
         this.spark_emmiter.minParticleSpeed.set(-140, -140);
         this.spark_emmiter.maxParticleSpeed.set(140, 140);
         this.spark_emmiter.makeParticles("spark");
+        this.spark_emmiter.setScale(1.5, 0.0, 1.5, 0.0, 2000);
         this.spark_emmiter.forEach(function(particle) {
             particle.checkWorldBounds = true;
             particle.outOfBoundsKill = true;
