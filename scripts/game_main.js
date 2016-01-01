@@ -130,8 +130,8 @@ game_main.prototype = {
                     // Top
                     var x_position = Math.random() * this.game.world.width;
                     var y_position = -24;
-                    var x_velocity = Math.random() * 40 - 20
-                    var y_velocity = Math.random() * 80;
+                    var x_velocity = Math.random() * 80 - 40
+                    var y_velocity = Math.random() * 160;
                     var tween_time = 48 / y_velocity;
                     var x_dest = x_position + x_velocity * tween_time;
                     var y_dest = y_position + y_velocity * tween_time;
@@ -140,8 +140,8 @@ game_main.prototype = {
                     // Bottom
                     var x_position = Math.random() * this.game.world.width;
                     var y_position = this.game.world.height + 24;
-                    var x_velocity = Math.random() * 40 - 20
-                    var y_velocity = Math.random() * -80;
+                    var x_velocity = Math.random() * 80 - 40
+                    var y_velocity = Math.random() * -160;
                     var tween_time = -48 / y_velocity;
                     var x_dest = x_position + x_velocity * tween_time;
                     var y_dest = y_position + y_velocity * tween_time;
@@ -150,8 +150,8 @@ game_main.prototype = {
                     // Left
                     var x_position = -24;
                     var y_position = Math.random() * this.game.world.height;
-                    var x_velocity = Math.random() * 80;
-                    var y_velocity = Math.random() * 40 - 20
+                    var x_velocity = Math.random() * 160;
+                    var y_velocity = Math.random() * 80 - 40
                     var tween_time = 48 / x_velocity;
                     var x_dest = x_position + x_velocity * tween_time;
                     var y_dest = y_position + y_velocity * tween_time;
@@ -160,8 +160,8 @@ game_main.prototype = {
                     // Right
                     var x_position = this.game.world.width + 24;
                     var y_position = Math.random() * this.game.world.height;
-                    var x_velocity = Math.random() * -80;
-                    var y_velocity = Math.random() * 40 - 20
+                    var x_velocity = Math.random() * -160;
+                    var y_velocity = Math.random() * 80 - 40
                     var tween_time = -48 / x_velocity;
                     var x_dest = x_position + x_velocity * tween_time;
                     var y_dest = y_position + y_velocity * tween_time;
@@ -249,14 +249,14 @@ game_main.prototype = {
         this.player.rotation = Math.atan2(delta_y, delta_x) + Math.PI / 2;
         
         this.asteroids_normal.forEachAlive(function(asteroid) {
-            if (asteroid.body.velocity.getMagnitude() > 200) {
-                asteroid.body.velocity.setMagnitude(200);
+            if (asteroid.body.velocity.getMagnitude() > 240) {
+                asteroid.body.velocity.setMagnitude(240);
             }
         }, this);
         
         this.asteroids_small.forEachAlive(function(asteroid) {
-            if (asteroid.body.velocity.getMagnitude() > 200) {
-                asteroid.body.velocity.setMagnitude(200);
+            if (asteroid.body.velocity.getMagnitude() > 480) {
+                asteroid.body.velocity.setMagnitude(480);
             }
         }, this);
         
