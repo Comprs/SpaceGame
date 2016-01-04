@@ -21,6 +21,7 @@ boot.prototype = {
         console.log("Booting the game");
         this.game.scale.pageAlignHorizontally = true;
         this.game.scale.pageAlignVertically = true;
+        this.game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL;
         this.game.canvas.id = "game_canvas";
     },
     
